@@ -2,74 +2,88 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect,
+  Switch
 } from 'react-router-dom'
 
-import { Login } from './containers/Login.js';
+import { connect } from 'react-redux';
+import { logout } from './actions';
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
+import Login from './containers/Login.js';
+import UsersAPI from './services/UsersAPI.js';
+import Authentication from './services/Authentication.js';
+import Register from './containers/Register.js';
+import PrivateRoute from './components/PrivateRoute';
+import Logout from './containers/Logout';
 
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
+class App extends React.Component {
 
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
+  constructor(props) {
+    super(props);
+    UsersAPI.seedAdmin();
 
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
+    this.auth = new Authentication();
+    this.logout = this.logout.bind(this);
 
-    <Route path={`${match.path}/:topicId`} component={Topic}/>
-    <Route exact path={match.path} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-)
+  }
 
-const App = () => (
-  <Router>
-    <div>
+  logout() {
+    this.props.dispatch(logout());
+  }
+
+  renderGuestHeader() {
+    return (
+      <ul>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/register">Register</Link></li>
+      </ul>
+    );
+  }
+
+  renderUserHeader() {
+    return (
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
-        <li><Link to="/login">Login</Link></li>
-      </ul>
+        <li><Link to="/tasks">About</Link></li>
+        <li><Link to="/logout">Logout</Link></li>
+      </ul>);
+  }
 
-      <hr/>
+  render() {
 
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
-      <Route path="/login" component={Login}/>
-    </div>
-  </Router>
-)
-export default App
+    return (
+      <Router>
+        <div>
+          <header>
+            <nav>
+              {(this.props.isAuthenticated) ? this.renderUserHeader() : this.renderGuestHeader()}
+            </nav>
+          </header>
+          <section className="container">
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <PrivateRoute path="/tasks" component={Register} />
+              <PrivateRoute path="/logout" component={Logout} />
+            </Switch>
+          </section>
+        </div>
+      </Router >
+    );
+  }
+}
+
+// function requireAuth(nextState, replace) {
+//   if (!this.isAuthenticated) {
+//     replace({
+//       pathname: '/login'
+//     })
+//   }
+// }
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.users.isAuthenticated
+});
+
+export default connect(mapStateToProps)(App);
