@@ -24,12 +24,6 @@ class App extends React.Component {
     UsersAPI.seedAdmin();
 
     this.auth = new Authentication();
-    this.logout = this.logout.bind(this);
-
-  }
-
-  logout() {
-    this.props.dispatch(logout());
   }
 
   renderGuestHeader() {
@@ -61,6 +55,9 @@ class App extends React.Component {
             </nav>
           </header>
           <section className="container">
+            {this.props.globalMessage.length > 0 && (<div className="alert alert-info">
+              {this.props.globalMessage}
+            </div>)}
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
@@ -83,7 +80,8 @@ class App extends React.Component {
 // }
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.users.isAuthenticated
+  isAuthenticated: state.users.isAuthenticated,
+  globalMessage: state.message
 });
 
 export default connect(mapStateToProps)(App);

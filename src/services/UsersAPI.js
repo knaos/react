@@ -4,12 +4,12 @@ export default class UsersAPI {
         return Math.floor(Math.random() * 10001) + 1;
     }
 
-    static register(user) {
+    static addUser(user) {
         return new Promise((resolve, reject) => {
             let users = UsersAPI.getAllUsers();
-
             if (!users.some(u => u.username === user.username)) {
                 user.id = UsersAPI.generateId();
+                user.isAdmin = user.isAdmin || false;
                 users.push(user);
 
                 localStorage.setItem('users', JSON.stringify(users));
@@ -28,7 +28,7 @@ export default class UsersAPI {
             isAdmin: true,
         }
 
-        return UsersAPI.register(admin).catch(e => console.log);
+        return UsersAPI.addUser(admin).catch(e => console.log);
     }
 
     static getAllUsers() {

@@ -43,33 +43,36 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        {this.state.hasError && (<div className="alert alert-danger">{this.state.errorText}</div>)}
-
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            className="form-control"
-            placeholder="Please type your username..."
-            onChange={this.onUsernameChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            className="form-control"
-            placeholder="Please type your password"
-            onChange={this.onPasswordChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+      <div>
+        <h1>Login</h1>
+        <form onSubmit={this.onSubmit}>
+          {this.state.hasError && (<div className="alert alert-danger">{this.state.errorText}</div>)}
+  
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              className="form-control"
+              placeholder="Please type your username..."
+              onChange={this.onUsernameChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Please type your password"
+              onChange={this.onPasswordChange}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
+      </div>
     );
   }
 }
