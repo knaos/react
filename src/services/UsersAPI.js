@@ -45,4 +45,17 @@ export default class UsersAPI {
 
         return users.find(u => u.id === id);
     }
+
+    static updateUser(user) {
+        let users = UsersAPI.getAllUsers().filter(u => u.id != user.id);
+        users.push(user);
+
+        localStorage.setItem('users', JSON.stringify(users))
+    }
+
+    static deleteUser(id) {
+        let users = UsersAPI.getAllUsers().filter(u => u.id != id);
+
+        localStorage.setItem('users', JSON.stringify(users));
+    }
 }

@@ -31,6 +31,7 @@ class Login extends React.Component {
     Authentication.login(this.state.username, this.state.password)
       .then((user) => {
         that.props.dispatch(login(user));
+        that.props.history.push('/');
       })
       .catch(e => {
         this.setState({
@@ -47,7 +48,7 @@ class Login extends React.Component {
         <h1>Login</h1>
         <form onSubmit={this.onSubmit}>
           {this.state.hasError && (<div className="alert alert-danger">{this.state.errorText}</div>)}
-  
+
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input

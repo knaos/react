@@ -9,6 +9,10 @@ export const LOG_OUT = 'LOG_OUT';
 
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 
+export const FETCH_USERS = 'FETCH_USERS';
+export const RECEIVE_USERS = 'RECEIVE_USERS';
+
+export const TOGGLE_ADMIN = 'TOGGLE_ADMIN';
 
 export const addUser = user => ({
     type: ADD_USER,
@@ -42,4 +46,17 @@ export const logout = () => ({
 export const showMessage = (message) => ({
     type: SHOW_MESSAGE,
     message
-}); 
+});
+
+export const fetchUsers = () => ({
+    type: FETCH_USERS
+})
+
+export const receiveUsers = users => ({
+    type: RECEIVE_USERS,
+    users: users
+})
+
+export const toggleAdmin = id => ({
+    type: TOGGLE_ADMIN
+})

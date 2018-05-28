@@ -15,7 +15,9 @@ import UsersAPI from './services/UsersAPI.js';
 import Authentication from './services/Authentication.js';
 import Register from './containers/Register.js';
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
 import Logout from './containers/Logout';
+import UsersList from './containers/UsersList';
 
 class App extends React.Component {
 
@@ -39,7 +41,7 @@ class App extends React.Component {
     return (
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/tasks">About</Link></li>
+        {this.isAdmin && (<li><Link to="/Users">Users</Link></li>)}
         <li><Link to="/logout">Logout</Link></li>
       </ul>);
   }
@@ -63,6 +65,7 @@ class App extends React.Component {
               <Route path="/register" component={Register} />
               <PrivateRoute path="/tasks" component={Register} />
               <PrivateRoute path="/logout" component={Logout} />
+              <AdminRoute path="/users" component={UsersList} />
             </Switch>
           </section>
         </div>
@@ -71,17 +74,11 @@ class App extends React.Component {
   }
 }
 
-// function requireAuth(nextState, replace) {
-//   if (!this.isAuthenticated) {
-//     replace({
-//       pathname: '/login'
-//     })
-//   }
-// }
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.users.isAuthenticated,
-  globalMessage: state.message
+  globalMessage: state.message,
+  isAdmin: state.users.isAdmin
 });
 
 export default connect(mapStateToProps)(App);
