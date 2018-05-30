@@ -47,6 +47,7 @@ class Login extends React.Component {
     return (
       <div>
         <h1>Login</h1>
+        <h3>(Try with username username: admin, password: admin</h3>
         <form onSubmit={this.onSubmit}>
           {this.state.hasError && (<div className="alert alert-danger">{this.state.errorText}</div>)}
 
