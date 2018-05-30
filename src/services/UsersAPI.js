@@ -1,3 +1,5 @@
+import TasksAPI from "./TasksAPI";
+
 export default class UsersAPI {
 
     static generateId() {
@@ -55,7 +57,8 @@ export default class UsersAPI {
 
     static deleteUser(id) {
         let users = UsersAPI.getAllUsers().filter(u => u.id != id);
-
+        let tasks = TasksAPI.getAll().filter(t => t.createdBy != id);
+        TasksAPI.save(tasks);
         localStorage.setItem('users', JSON.stringify(users));
     }
 }

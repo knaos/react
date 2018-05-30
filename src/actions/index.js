@@ -1,6 +1,5 @@
-export const ADD_TASK = 'ADD_TASK';
-export const DELETE_TASK = 'DELETE_TASK';
-export const COMPLETE_TASK = 'COMPLETE_TASK';
+import UsersAPI from "../services/UsersAPI";
+import TasksAPI from "../services/TasksAPI";
 
 export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
@@ -14,6 +13,12 @@ export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 export const TOGGLE_ADMIN = 'TOGGLE_ADMIN';
 
+export const ADD_TASK = 'ADD_TASK';
+export const RECEIVE_TASKS = 'RECEIVE_TASKS';
+export const DELETE_TASK = 'DELETE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const TOGGLE_TASK = 'TOGGLE_TASK';
+
 export const addUser = user => ({
     type: ADD_USER,
     user
@@ -24,15 +29,7 @@ export const deleteUser = id => ({
     id
 })
 
-export const addTask = task => ({
-    type: ADD_TASK,
-    task
-})
 
-export const deleteTask = id => ({
-    type: deleteTask,
-    id
-})
 
 export const login = user => ({
     type: LOG_IN,
@@ -60,3 +57,17 @@ export const receiveUsers = users => ({
 export const toggleAdmin = id => ({
     type: TOGGLE_ADMIN
 })
+
+
+export const receiveTasks = () => {
+    const tasks = TasksAPI.getAll();
+    return {
+        type: RECEIVE_TASKS,
+        tasks
+    }
+}
+
+export const addTask = (task) => {
+
+    return { type: addTask };
+}

@@ -18,7 +18,9 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
 import Logout from './containers/Logout';
 import UsersList from './containers/UsersList';
-
+import AddTask from './containers/AddTask';
+import TasksList from './containers/TasksListContainer';
+import EditTask from './containers/EditTask';
 class App extends React.Component {
 
   constructor(props) {
@@ -41,7 +43,9 @@ class App extends React.Component {
     return (
       <ul>
         <li><Link to="/">Home</Link></li>
-        {this.isAdmin && (<li><Link to="/Users">Users</Link></li>)}
+        <li><Link to="/tasks">Tasks</Link></li>
+        <li><Link to="/create/task">Add task</Link></li>
+        {this.props.currentUser.isAdmin && (<li><Link to="/Users">Users</Link></li>)}
         <li><Link to="/logout">Logout</Link></li>
       </ul>);
   }
@@ -63,9 +67,12 @@ class App extends React.Component {
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-              <PrivateRoute path="/tasks" component={Register} />
+              <PrivateRoute path="/tasks/edit/:id" component={EditTask} />
+              <PrivateRoute path="/tasks" component={TasksList} />
               <PrivateRoute path="/logout" component={Logout} />
+              <PrivateRoute path="/create/task" component={AddTask} />
               <AdminRoute path="/users" component={UsersList} />
+              <Route path="/"><h1>Wellcome to the tasks app!</h1></Route>
             </Switch>
           </section>
         </div>
@@ -78,7 +85,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
   isAuthenticated: state.users.isAuthenticated,
   globalMessage: state.message,
-  isAdmin: state.users.isAdmin
+  currentUser: state.users.currentUser
 });
 
 export default connect(mapStateToProps)(App);
