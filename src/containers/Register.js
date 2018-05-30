@@ -20,7 +20,7 @@ class Register extends React.Component {
     onSumbit(event) {
         event.preventDefault();
         let that = this;
-        debugger;
+
         if (this.state.username.length && this.state.password.length) {
             const user = { username: this.state.username, password: this.state.password };
             UsersAPI.addUser(user)

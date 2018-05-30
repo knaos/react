@@ -1,7 +1,7 @@
 import React from 'react';
 import Authentication from '../services/Authentication';
 import { connect } from 'react-redux';
-import { login } from '../actions';
+import { login, showMessage } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class Login extends React.Component {
     Authentication.login(this.state.username, this.state.password)
       .then((user) => {
         that.props.dispatch(login(user));
+        that.props.dispatch(showMessage(''));
         that.props.history.push('/');
       })
       .catch(e => {

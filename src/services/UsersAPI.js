@@ -57,6 +57,7 @@ export default class UsersAPI {
 
     static deleteUser(id) {
         let users = UsersAPI.getAllUsers().filter(u => u.id != id);
+        // delete all the tasks for this user
         let tasks = TasksAPI.getAll().filter(t => t.createdBy != id);
         TasksAPI.save(tasks);
         localStorage.setItem('users', JSON.stringify(users));

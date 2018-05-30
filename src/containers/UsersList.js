@@ -36,7 +36,7 @@ class UsersList extends React.Component {
         const users = this.props.users.filter(u => u.username != 'admin');
 
         return (
-            <table>
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Username</th>

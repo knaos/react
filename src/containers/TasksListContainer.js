@@ -20,8 +20,8 @@ class TasksList extends React.Component {
             <td>
                 {
                     this.props.currentUser.id == t.createdBy || this.props.currentUser.isAdmin ? (<div>
-                        <Link to={`/tasks/edit/${t.id}`}>Edit</Link>
-                        <Link to={`/tasks/delete/${t.id}`}>Delete</Link>
+                        <Link to={`/tasks/edit/${t.id}`}><button className="btn btn-success">Edit</button></Link>
+                        <Link to={`/tasks/delete/${t.id}`}><button className="btn btn-danger">Delete</button></Link>
                     </div>) : 'You can not edit this ;)'
                 }
             </td>
@@ -32,7 +32,7 @@ class TasksList extends React.Component {
                 <div className="col-md-12">
                     <h1>Tasks list</h1>
                     <hr />
-                    <table>
+                    <table className="table">
                         <thead>
                             <tr>
                                 <th>Task</th>

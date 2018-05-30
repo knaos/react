@@ -33,7 +33,6 @@ export default class TasksAPI {
     }
 
     static update(task) {
-        debugger;
         let tasks = TasksAPI.getAll();
         tasks = tasks.filter(t => t.id !== task.id);
         tasks.push(task);
