@@ -71,3 +71,9 @@ export const addTask = (task) => {
 
     return { type: addTask };
 }
+
+export const deleteTask = (task) => {
+    TasksAPI.delete(task.id);
+
+    return receiveTasks();
+}

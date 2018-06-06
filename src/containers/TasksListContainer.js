@@ -1,13 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { receiveTasks } from '../actions';
+import { receiveTasks, deleteTask } from '../actions';
 
 
 class TasksList extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.deleteTask = this.deleteTask.bind(this);
+    }
+
     componentWillMount() {
         this.props.dispatch(receiveTasks());
+    }
+
+    deleteTask(task) {
+        this.props.dispatch(deleteTask(task))
     }
 
     render() {
@@ -21,7 +30,7 @@ class TasksList extends React.Component {
                 {
                     this.props.currentUser.id == t.createdBy || this.props.currentUser.isAdmin ? (<div>
                         <Link to={`/tasks/edit/${t.id}`}><button className="btn btn-success">Edit</button></Link>
-                        <Link to={`/tasks/delete/${t.id}`}><button className="btn btn-danger">Delete</button></Link>
+                        <button onClick={(e) => this.deleteTask(t)} className="btn btn-danger">Delete</button>
                     </div>) : 'You can not edit this ;)'
                 }
             </td>
